@@ -1,16 +1,26 @@
 pipeline{
     agent any
-    stages{
+       stages{
             stage('Build'){
-                tools{
-                    jdk 'jdk1.8'
-                }
-                steps
-                {
-                    echo "Build Project"
-                    powershell label: '', script: 'mvn clean package -f spring-boot-samples/spring-boot-sample-atmosphere/pom.xml'
-                }
-            } 
+                            tools{
+                                jdk 'jdk1.8'
+                                 }
+                            def userInput = input message: 'Do you want to perform code quality analysis?', parameters: [choice(choices: ['Yes', 'No'], description: '', name: 'Choices')]
+                            when { ${userInput} == 'Yes' }
+                                    steps {
+                                            withSonarQubeEnv() { // If you have configured more than one global server connection, you can specify its name
+                                            sh "/bin/sonar-scanner"
+                                            echo "Build Project"
+                                            powershell label: '', script: 'mvn clean package -f spring-boot-samples/spring-boot-sample-atmosphere/pom.xml'
+                                          }
+                            
+                             when { ${userInput} == 'No' }
+                                    steps {
+                                            echo "Build Project"
+                                            powershell label: '', script: 'mvn package sonar:sonar -f spring-boot-samples/spring-boot-sample-atmosphere/pom.xml'
+                                          }
+                            }
+                
             stage('Archive'){
                 steps
                 {
