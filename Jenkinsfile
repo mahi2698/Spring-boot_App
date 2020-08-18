@@ -14,10 +14,13 @@ pipeline{
                     if (env.codeanalysis=='Yes'){
                              environment {
                                     SCANNER_HOME = tool 'sonar'
+                                    PROJECT_NAME = "HappyTrip"
                                   }
                              withSonarQubeEnv('sonar') {
-                                        sh '''$SCANNER_HOME/bin/sonar-scanner'''
-                             
+                                        sh '''$SCANNER_HOME/bin/sonar-scanner
+                                         -Dsonar.projectKey=$PROJECT_NAME \
+                                         -Dsonar.sources=. \
+                                         '''
                                      }
                              }
                              echo "Build Project"
