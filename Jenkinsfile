@@ -12,7 +12,7 @@ pipeline{
                             parameters: [choice(name: 'codeanalysis', choices: ['Yes','No'].join('\n'), description: 'Do you wan to perform code quality analysis?')]
                     }
                     echo "${env.codeanalysis}"
-                    if (env.codeanalysis}=='Yes'){
+                    if (env.codeanalysis=='Yes'){
                              environment {
                                     SCANNER_HOME = tool 'sonar'
                                   }
