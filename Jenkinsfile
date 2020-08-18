@@ -17,10 +17,10 @@ pipeline{
                                     PROJECT_NAME = "com.happytrip:prabhav"
                                   }
                              withSonarQubeEnv('sonar') {
-                                        sh '''$SCANNER_HOME/bin/sonar-scanner
+                                        sh '''$SCANNER_HOME/bin/sonar-scanner \                                        
+                                         -Dsonar.java.binaries=build/classes/java/ \
                                          -Dsonar.projectKey=$PROJECT_NAME \
-                                         -Dsonar.sources=. \
-                                         '''
+                                         -Dsonar.sources=.'''
                                      }
                              }
                              echo "Build Project"
