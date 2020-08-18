@@ -23,6 +23,7 @@ pipeline{
                                             powershell label: '', script: 'mvn package sonar:sonar -f spring-boot-samples/spring-boot-sample-atmosphere/pom.xml'
                                           }
                             steps{
+                                echo "Hello"
                             }
             }
                 
