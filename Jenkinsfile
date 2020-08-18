@@ -4,12 +4,12 @@ pipeline{
         choice(choices: ['Yes', 'No'], description: '', name: 'Choices')
     }
        stages{
-            stage('Build'){
-                            tools{
-                                jdk 'jdk1.8'
-                            }                            
+            stage('Build'){                           
                             when { expression { params.Choices == 'Yes' } }
                                     steps {
+                                            tools{
+                                                jdk 'jdk1.8'
+                                            } 
                                             withSonarQubeEnv() { // If you have configured more than one global server connection, you can specify its name
                                             sh "/bin/sonar-scanner"
                                             echo "Build Project"
