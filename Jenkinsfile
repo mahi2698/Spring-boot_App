@@ -2,6 +2,9 @@ pipeline{
     agent any
     stages{
             stage('Build'){
+                tools{
+                    jdk 'jdk1.8'
+                }
                 steps
                 {
                     echo "Build Project"
