@@ -13,6 +13,21 @@ pipeline{
                     }
                     echo "${env.codeanalysis}"
                     
+                    when{expression{${env.codeanalysis}=='Yes'}
+                         steps{
+                             stages{
+                                 stage('SonarCloud') {
+                                  environment {
+                                    SCANNER_HOME = tool 'sonar'
+                                  }
+                                  steps {
+                                    withSonarQubeEnv('sonar') {
+                                        sh '''$SCANNER_HOME/bin/sonar-scanner'''
+                                    }
+                                  }
+                                }
+                             }
+                                    
                     echo "Build Project"
                     powershell label: '', script: 'mvn clean package -f spring-boot-samples/spring-boot-sample-atmosphere/pom.xml'  
                 }
