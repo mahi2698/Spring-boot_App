@@ -15,6 +15,7 @@ pipeline{
 
                     when{expression{${env.codeanalysis}=='Yes'}}
                          steps{
+                             script {
                              environment {
                                     SCANNER_HOME = tool 'sonar'
                                   }
@@ -22,7 +23,7 @@ pipeline{
                                         sh '''$SCANNER_HOME/bin/sonar-scanner'''
                              
                                      }
-
+                             }
                              echo "Build Project"
                              powershell label: '', script: 'mvn clean package -f spring-boot-samples/spring-boot-sample-atmosphere/pom.xml'
                             }
