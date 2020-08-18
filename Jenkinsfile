@@ -14,7 +14,7 @@ pipeline{
                     if (env.codeanalysis=='Yes'){
                              environment {
                                     SCANNER_HOME = tool 'sonar'
-                                    PROJECT_NAME = "HappyTrip"
+                                    PROJECT_NAME = "com.happytrip:prabhav"
                                   }
                              withSonarQubeEnv('sonar') {
                                         sh '''$SCANNER_HOME/bin/sonar-scanner                                        
