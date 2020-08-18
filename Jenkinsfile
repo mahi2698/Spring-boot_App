@@ -14,7 +14,7 @@ pipeline{
             stage('Archive'){
                 steps
                 {
-                    echo "Archiving Artifact"
+                    echo "Archive Artifact"
                     archiveArtifacts artifacts: 'spring-boot-samples/spring-boot-sample-atmosphere/target/*.jar', followSymlinks: false
                 }
             } 
