@@ -10,7 +10,6 @@ pipeline{
                     script {
                     env.codeanalysis = input message: 'User input required', ok: 'OK!',
                             parameters: [choice(name: 'codeanalysis', choices: ['Yes','No'].join('\n'), description: 'Do you wan to perform code quality analysis?')]
-                    }
                     echo "${env.codeanalysis}"
                     if (env.codeanalysis=='Yes'){
                              environment {
@@ -24,6 +23,7 @@ pipeline{
                              echo "Build Project"
                              powershell label: '', script: 'mvn clean package -f spring-boot-samples/spring-boot-sample-atmosphere/pom.xml'
                             }
+                }
             }
             stage('Archive'){
                 steps
