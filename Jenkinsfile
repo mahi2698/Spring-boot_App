@@ -16,15 +16,7 @@ pipeline{
                                             echo "Build Project"
                                             powershell label: '', script: 'mvn clean package -f spring-boot-samples/spring-boot-sample-atmosphere/pom.xml'
                                           }
-                            
-                             when { expression { params.Choices == 'No' } }
-                                    steps {
-                                            echo "Build Project"
-                                            powershell label: '', script: 'mvn package sonar:sonar -f spring-boot-samples/spring-boot-sample-atmosphere/pom.xml'
-                                          }
-                            steps{
-                                echo "Hello"
-                            }
+                   
             }
                 
             stage('Archive'){
