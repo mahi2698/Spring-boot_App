@@ -12,21 +12,14 @@ pipeline{
                             parameters: [choice(name: 'codeanalysis', choices: ['Yes','No'].join('\n'), description: 'Do you wan to perform code quality analysis?')]
                     echo "${env.codeanalysis}"
                     if (env.codeanalysis=='Yes'){
-                             environment {
-                                    SCANNER_HOME = tool 'sonar'
-                                    PROJECT_NAME = "com.happytrip:prabhav"
-                                  }
-                             withSonarQubeEnv('sonar') {
-                                        sh '''$SCANNER_HOME/bin/sonar-scanner                                        
-                                         -Dsonar.java.binaries=build/classes/java/ \
-                                         -Dsonar.projectKey=$PROJECT_NAME \
-                                         -Dsonar.sources=.'''
-                                     }
-                             }
                              echo "Build Project"
-                             powershell label: '', script: 'mvn package sonar:sonar'
+                             withSonarQubeEnv('sonar') {
+                                       powershell label: '', script: 'mvn package sonar:sonar'
+                                     }                            
+                             
                             }
                 }
+            }
             }
             stage('Archive'){
                 steps
