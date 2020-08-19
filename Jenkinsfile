@@ -24,7 +24,7 @@ pipeline{
                                      }
                              }
                              echo "Build Project"
-                             powershell label: '', script: 'mvn package -f sonar:sonar'
+                             powershell label: '', script: 'mvn package sonar:sonar'
                             }
                 }
             }
