@@ -24,7 +24,7 @@ pipeline{
                                      }
                              }
                              echo "Build Project"
-                             powershell label: '', script: 'mvn package sonar:sonar -f spring-boot-samples/spring-boot-sample-atmosphere/pom.xml'
+                             powershell label: '', script: 'mvn package -f sonar:sonar'
                             }
                 }
             }
@@ -32,21 +32,21 @@ pipeline{
                 steps
                 {
                     echo "Archive Artifact"
-                    archiveArtifacts artifacts: 'spring-boot-samples/spring-boot-sample-atmosphere/target/*.jar', followSymlinks: false
+                    archiveArtifacts artifacts: 'C:/Program Files (x86)/Jenkins/workspace/HappyT-pipeline/target/*.jar', followSymlinks: false
                 }
             }
             stage('Publish JUnit'){
                 steps
                 {
                     echo "Publish JUnit"
-                    junit 'spring-boot-samples/spring-boot-sample-atmosphere/target/surefire-reports/*.xml'
+                    junit 'C:/Program Files (x86)/Jenkins/workspace/HappyT-pipeline/target/surefire-reports/*.xml'
                 }
             }
             stage('Publish HTML'){
                 steps
                 {
                     echo "Publish HTML"
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'spring-boot-samples/spring-boot-sample-atmosphere/target/site/jacoco', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'C:/Program Files (x86)/Jenkins/workspace/HappyT-pipeline/target/site/jacoco', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
                 }
             }
          }
